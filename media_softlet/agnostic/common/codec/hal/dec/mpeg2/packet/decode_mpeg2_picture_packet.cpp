@@ -253,7 +253,7 @@ MHW_SETPAR_DECL_SRC(MFX_PIPE_BUF_ADDR_STATE, Mpeg2DecodePicPkt)
 
     Mpeg2DecodeMemComp *mpeg2DecodeMemComp = dynamic_cast<Mpeg2DecodeMemComp *>(m_mmcState);
     DECODE_CHK_NULL(mpeg2DecodeMemComp);
-    DECODE_CHK_STATUS(mpeg2DecodeMemComp->CheckReferenceList(*m_mpeg2BasicFeature, params.PreDeblockSurfMmcState, params.PostDeblockSurfMmcState));
+    DECODE_CHK_STATUS(mpeg2DecodeMemComp->CheckReferenceList(*m_mpeg2BasicFeature, params.PreDeblockSurfMmcState, params.PostDeblockSurfMmcState, params.presReferences));
 
     return MOS_STATUS_SUCCESS;
 }
