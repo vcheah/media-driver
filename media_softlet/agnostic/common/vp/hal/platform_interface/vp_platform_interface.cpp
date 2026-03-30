@@ -746,7 +746,7 @@ void VpPlatformInterface::InitVpDelayedNativeAdvKernel(
 
     VpRenderKernel vpKernel;
 
-    bool localIdGeneratedByRuntime = (kernelExeEnv.uiSlmSize > 0 && kernelExeEnv.uSimdSize == 1);
+    bool localIdGeneratedByRuntime = (kernelExeEnv.uiSlmSize > 0 && kernelExeEnv.uSimdSize == 1) || (kernelExeEnv.uInlineDataPayloadSize == 64 && kernelExeEnv.uSimdSize == 1);
 
     vpKernel.SetKernelBinPointer((void *)kernelBin);
     vpKernel.SetKernelName(kernelName);

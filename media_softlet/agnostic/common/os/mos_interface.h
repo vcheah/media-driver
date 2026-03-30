@@ -533,7 +533,9 @@ public:
         uint32_t         *pIndirectState,
         uint32_t         *gfxAddressBottom,
         uint32_t         *gfxAddressTop,
-        const char       *stateName);
+        const char       *stateName,
+        uint32_t          gfxAddressBottomValue,
+        uint32_t          gfxAddressTopValue);
 
     //!
     //! \brief    Dump Command Buffer

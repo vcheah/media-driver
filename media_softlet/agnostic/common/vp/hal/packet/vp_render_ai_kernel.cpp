@@ -29,6 +29,9 @@
 
 using namespace vp;
 
+#define AI_BINDLESS_NEAREST_SAMPLER_INDEX 0
+#define AI_BINDLESS_BILIEAR_SAMPLER_INDEX 1
+
 std::map<std::string, VpKernelID> VpRenderAiKernel::m_kernelBiniaryIdMap;
 VpKernelID                        VpRenderAiKernel::m_currentBiniaryID = VpKernelID(kernelAiCommon);
 
@@ -188,20 +191,30 @@ MOS_STATUS VpRenderAiKernel::SetKernelArgs(KERNEL_ARGS &kernelArgs, VP_PACKET_SH
                 }
                 else
                 {
-                    if (*(uint32_t *)srcArg.pData == MHW_SAMPLER_FILTER_BILINEAR)
+                    if (dstArg.addressMode == AddressingModeBindless)
                     {
-                        m_linearSamplerIndex = dstArg.uOffsetInPayload;
-                        srcArg.pData         = nullptr;
-                    }
-                    else if (*(uint32_t *)srcArg.pData == MHW_SAMPLER_FILTER_NEAREST)
-                    {
-                        m_nearestSamplerIndex = dstArg.uOffsetInPayload;
+                        m_linearSamplerIndex  = AI_BINDLESS_BILIEAR_SAMPLER_INDEX;
+                        m_nearestSamplerIndex = AI_BINDLESS_NEAREST_SAMPLER_INDEX;
+                        dstArg.pData          = srcArg.pData;
                         srcArg.pData          = nullptr;
                     }
                     else
                     {
-                        VP_RENDER_ASSERTMESSAGE("The Kernel Argument Sampler Data is INVALID TYPE! KernelName %s, argIndex %d, type %d", m_kernelName.c_str(), dstArg.uIndex, *(uint32_t *)srcArg.pData);
-                        return MOS_STATUS_INVALID_PARAMETER;
+                        if (*(uint32_t *)srcArg.pData == MHW_SAMPLER_FILTER_BILINEAR)
+                        {
+                            m_linearSamplerIndex = dstArg.uOffsetInPayload;
+                            srcArg.pData         = nullptr;
+                        }
+                        else if (*(uint32_t *)srcArg.pData == MHW_SAMPLER_FILTER_NEAREST)
+                        {
+                            m_nearestSamplerIndex = dstArg.uOffsetInPayload;
+                            srcArg.pData          = nullptr;
+                        }
+                        else
+                        {
+                            VP_RENDER_ASSERTMESSAGE("The Kernel Argument Sampler Data is INVALID TYPE! KernelName %s, argIndex %d, type %d", m_kernelName.c_str(), dstArg.uIndex, *(uint32_t *)srcArg.pData);
+                            return MOS_STATUS_INVALID_PARAMETER;
+                        }
                     }
                 }
             }
@@ -260,9 +273,15 @@ MOS_STATUS VpRenderAiKernel::GetCurbeState(void *&curbe, uint32_t &curbeLength)
             }
             break;
         case ARG_KIND_SURFACE:
-            if (arg.pData != nullptr)
+            if (arg.addressMode == AddressingModeBindless)
             {
-                if (arg.addressMode == AddressingModeStateless)
+                // this is bindless surface
+                VP_PUBLIC_CHK_STATUS_RETURN(SetBindlessSurfaceStateToResourceList(arg));
+                VP_RENDER_NORMALMESSAGE("Setting Curbe State Bindless Surface KernelID %d, index %d, argKind %d", m_kernelId, arg.uIndex, arg.eArgKind);
+            }
+            else if (arg.addressMode == AddressingModeStateless)
+            {
+                if (arg.pData != nullptr)
                 {
                     VP_PUBLIC_CHK_NULL_RETURN(m_surfaceGroup);
                     SURFACE_PARAMS &surfaceParam = *(SURFACE_PARAMS *)arg.pData;
@@ -284,14 +303,26 @@ MOS_STATUS VpRenderAiKernel::GetCurbeState(void *&curbe, uint32_t &curbeLength)
                     m_curbeResourceList.push_back(params);
                     VP_RENDER_NORMALMESSAGE("Setting Stateless Curbe State KernelName %s, index %d , surfType %d, argKind %d", m_kernelName.c_str(), arg.uIndex, surfaceParam.surfType, arg.eArgKind);
                 }
+                else
+                {
+                    VP_RENDER_NORMALMESSAGE("KernelName %s, index %d, argKind %d is empty", m_kernelName.c_str(), arg.uIndex, arg.eArgKind);
+                }
             }
             else
             {
-                VP_RENDER_NORMALMESSAGE("KernelName %s, index %d, argKind %d is empty", m_kernelName.c_str(), arg.uIndex, arg.eArgKind);
+                VP_RENDER_NORMALMESSAGE("KernelName %s, index %d, argKind %d will is BTI surface", m_kernelName.c_str(), arg.uIndex, arg.eArgKind);
             }
             break;
         case ARG_KIND_INLINE:
+            break;
         case ARG_KIND_SAMPLER:
+            if (arg.addressMode == AddressingModeBindless)
+            {
+                VP_RENDER_CHK_NULL_RETURN(arg.pData);
+                uint32_t samplerIndex = (*(uint32_t *)arg.pData == MHW_SAMPLER_FILTER_NEAREST) ? AI_BINDLESS_NEAREST_SAMPLER_INDEX : AI_BINDLESS_BILIEAR_SAMPLER_INDEX;
+                VP_RENDER_CHK_STATUS_RETURN(SetBindlessSamplerToResourceList(arg, samplerIndex));
+                VP_RENDER_NORMALMESSAGE("Setting Curbe State Bindless Sampler KernelID %d, index %d, argKind %d", m_kernelId, arg.uIndex, arg.eArgKind);
+            }
             break;
         default:
             VP_PUBLIC_CHK_STATUS_RETURN(MOS_STATUS_UNIMPLEMENTED);
@@ -407,6 +438,34 @@ MOS_STATUS VpRenderAiKernel::SetupSurfaceState()
         m_surfaceState.insert(std::make_pair(surfType, kernelSurfaceParam));
 
         UpdateCurbeBindingIndex(surfType, bti);
+    }
+
+    for (auto &handle : m_kernelArgs)
+    {
+        KRN_ARG &arg = handle.second;
+
+        if (arg.addressMode != AddressingModeBindless || arg.eArgKind != ARG_KIND_SURFACE)
+        {
+            continue;
+        }
+        uint32_t argIndex   = arg.uIndex;
+        auto     surfHandle = m_argIndexSurfMap.find(argIndex);
+        VP_PUBLIC_CHK_NOT_FOUND_RETURN(surfHandle, &m_argIndexSurfMap);
+        SURFACE_PARAMS &surfParam = surfHandle->second;
+        SurfaceType     surfType  = surfParam.surfType;
+        if (surfParam.planeIndex != 0 || surfType == SurfaceTypeSubPlane || surfType == SurfaceTypeInvalid)
+        {
+            VP_RENDER_NORMALMESSAGE("Will skip bindless surface argIndex %d for its planeIndex is set as %d, surfType %d", argIndex, surfParam.planeIndex, surfType);
+            continue;
+        }
+        if (m_surfaceState.find(surfType) != m_surfaceState.end())
+        {
+            continue;
+        }
+
+        VP_PUBLIC_CHK_STATUS_RETURN(GetKernelSurfaceParam(false, surfParam, kernelSurfaceParam));
+
+        m_surfaceState.insert(std::make_pair(surfType, kernelSurfaceParam));
     }
 
     return MOS_STATUS_SUCCESS;

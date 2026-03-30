@@ -502,6 +502,8 @@ struct INDIRECT_STATE_INFO
     uint32_t        *gfxAddressBottom      = nullptr;  //indirect gfx address bottom
     uint32_t        *gfxAddressTop         = nullptr;  //indirect gfx address top
     const char      *stateName             = "";
+    uint32_t        gfxAddressBottomValue  = 0;
+    uint32_t        gfxAddressTopValue     = 0;
 };
 
 struct MosStreamState
@@ -968,6 +970,14 @@ typedef struct _MOS_INTERFACE
         uint32_t            *gfxAddressBottom,
         uint32_t            *gfxAddressTop,
         const char          *stateName);
+
+    void (*pfnAddIndirectStateByAddressValue)(
+        PMOS_INTERFACE pOsInterface,
+        uint32_t       indirectStateSize,
+        uint32_t      *pIndirectState,
+        uint32_t       gfxAddressBottom,
+        uint32_t       gfxAddressTop,
+        const char    *stateName);
 
     #define pfnFreeResource(pOsInterface, pResource) \
        pfnFreeResource(pOsInterface, __FUNCTION__, __FILE__, __LINE__, pResource)

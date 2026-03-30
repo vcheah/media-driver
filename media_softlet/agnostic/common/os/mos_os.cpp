@@ -473,7 +473,27 @@ void Mos_AddIndirectState(
     MOS_OS_CHK_NULL_NO_STATUS_RETURN(pOsInterface->osStreamState);
     if (pOsInterface->apoMosEnabled)
     {
-        if (MOS_STATUS_SUCCESS != MosInterface::AddIndirectState(pOsInterface->osStreamState, stateSize, pIndirectState, gfxAddressBottom, gfxAddressTop, stateName))
+        if (MOS_STATUS_SUCCESS != MosInterface::AddIndirectState(pOsInterface->osStreamState, stateSize, pIndirectState, gfxAddressBottom, gfxAddressTop, stateName, 0, 0))
+        {
+            MOS_OS_ASSERTMESSAGE("Fail to Add Indirect State to Dump List");
+        }
+    }
+    return;
+}
+
+void Mos_AddIndirectStateByAddressValue(
+    PMOS_INTERFACE pOsInterface,
+    uint32_t       stateSize,
+    uint32_t      *pIndirectState,
+    uint32_t       gfxAddressBottom,
+    uint32_t       gfxAddressTop,
+    const char    *stateName)
+{
+    MOS_OS_CHK_NULL_NO_STATUS_RETURN(pOsInterface);
+    MOS_OS_CHK_NULL_NO_STATUS_RETURN(pOsInterface->osStreamState);
+    if (pOsInterface->apoMosEnabled)
+    {
+        if (MOS_STATUS_SUCCESS != MosInterface::AddIndirectState(pOsInterface->osStreamState, stateSize, pIndirectState, 0, 0, stateName, gfxAddressBottom, gfxAddressTop))
         {
             MOS_OS_ASSERTMESSAGE("Fail to Add Indirect State to Dump List");
         }
@@ -669,6 +689,7 @@ MOS_STATUS Mos_DumpCommandBufferInit(
     // Setup member function and variable.
     pOsInterface->pfnDumpCommandBuffer  = Mos_DumpCommandBuffer;
     pOsInterface->pfnAddIndirectState   = Mos_AddIndirectState;
+    pOsInterface->pfnAddIndirectStateByAddressValue = Mos_AddIndirectStateByAddressValue;
 
     // Check if command buffer dump was enabled in user feature.
     ReadUserSetting(

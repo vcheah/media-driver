@@ -729,7 +729,9 @@ MOS_STATUS MosInterface::AddIndirectState(
     uint32_t         *pIndirectState,
     uint32_t         *gfxAddressBottom,
     uint32_t         *gfxAddressTop,
-    const char       *stateName)
+    const char       *stateName,
+    uint32_t          gfxAddressBottomValue,
+    uint32_t          gfxAddressTopValue)
 {
     MOS_OS_CHK_NULL_RETURN(streamState);
     MOS_OS_CHK_NULL_RETURN(streamState->osDeviceContext);
@@ -737,12 +739,14 @@ MOS_STATUS MosInterface::AddIndirectState(
     if (streamState->osDeviceContext->m_dumpCommandBuffer &&
         streamState->osDeviceContext->m_dumpCommandBufferToFile)
     {
-        INDIRECT_STATE_INFO indirectStateInfo = {};
-        indirectStateInfo.stateSize           = stateSize;
-        indirectStateInfo.indirectState       = pIndirectState;
-        indirectStateInfo.gfxAddressBottom    = gfxAddressBottom;
-        indirectStateInfo.gfxAddressTop       = gfxAddressTop;
-        indirectStateInfo.stateName           = stateName;
+        INDIRECT_STATE_INFO indirectStateInfo   = {};
+        indirectStateInfo.stateSize             = stateSize;
+        indirectStateInfo.indirectState         = pIndirectState;
+        indirectStateInfo.gfxAddressBottom      = gfxAddressBottom;
+        indirectStateInfo.gfxAddressTop         = gfxAddressTop;
+        indirectStateInfo.stateName             = stateName;
+        indirectStateInfo.gfxAddressBottomValue = gfxAddressBottomValue;
+        indirectStateInfo.gfxAddressTopValue    = gfxAddressTopValue;
         streamState->indirectStateInfo.push_back(std::move(indirectStateInfo));
     }
 

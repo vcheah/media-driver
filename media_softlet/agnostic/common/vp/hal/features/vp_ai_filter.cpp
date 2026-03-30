@@ -241,35 +241,24 @@ MOS_STATUS VpAiFilter::InitKrnParams(AI_KERNEL_PARAMS &krnParams, SwFilterPipe &
             krnArg.addressMode   = kernelArg.addressMode;
             bool bInit           = true;
 
-            if (kernelArg.addressMode == AddressingModeStateless)
+            if (kernelArg.addressMode == AddressingModeBindless && kernelArg.eArgKind == ARG_KIND_SURFACE)
             {
-                if (krnArg.pData != nullptr)
-                {
-                    if (aiKrnArg.reservedSize != sizeof(SURFACE_PARAMS))
-                    {
-                        aiKrnArg.reservedSize = 0;
-                        MOS_FreeMemAndSetNull(krnArg.pData);
-                    }
-                    else
-                    {
-                        MOS_ZeroMemory(krnArg.pData, aiKrnArg.reservedSize);
-                    }
-                }
+                SURFACE_PARAMS surfaceParam = {};
+                VP_PUBLIC_CHK_NULL_RETURN(singleLayerSetting.pfnSetStatefulSurface);
+                VP_PUBLIC_CHK_STATUS_RETURN(singleLayerSetting.pfnSetStatefulSurface(kernelArg.uIndex, executingPipe, surfaceParam, bInit));
 
-                if (krnArg.pData == nullptr)
+                if (bInit)
                 {
-                    aiKrnArg.reservedSize = sizeof(SURFACE_PARAMS);
-                    krnArg.pData          = MOS_AllocAndZeroMemory(aiKrnArg.reservedSize);
-                    VP_PUBLIC_CHK_NULL_RETURN(krnArg.pData);
+                    kernelParam.kernelStatefulSurfaces.insert(std::make_pair(kernelArg.uIndex, surfaceParam));
                 }
-                VP_PUBLIC_CHK_NULL_RETURN(singleLayerSetting.pfnSetStatelessSurface);
-                VP_PUBLIC_CHK_STATUS_RETURN(singleLayerSetting.pfnSetStatelessSurface(kernelArg.uIndex, executingPipe, *(PSURFACE_PARAMS)krnArg.pData, bInit));
             }
             else
-            {   
-                if (krnArg.pData != nullptr)
+            {
+                uint32_t allocateSize = (kernelArg.addressMode == AddressingModeStateless ? sizeof(SURFACE_PARAMS) : kernelArg.uSize);
+
+                if(krnArg.pData != nullptr)
                 {
-                    if (aiKrnArg.reservedSize != kernelArg.uSize)
+                    if (aiKrnArg.reservedSize != allocateSize)
                     {
                         aiKrnArg.reservedSize = 0;
                         MOS_FreeMemAndSetNull(krnArg.pData);
@@ -280,19 +269,28 @@ MOS_STATUS VpAiFilter::InitKrnParams(AI_KERNEL_PARAMS &krnParams, SwFilterPipe &
                     }
                 }
 
-                if (krnArg.pData == nullptr && kernelArg.uSize > 0)
+                if (krnArg.pData == nullptr && allocateSize > 0)
                 {
-                    aiKrnArg.reservedSize = kernelArg.uSize;
-                    krnArg.pData          = MOS_AllocAndZeroMemory(kernelArg.uSize);
+                    aiKrnArg.reservedSize = allocateSize;
+                    krnArg.pData          = MOS_AllocAndZeroMemory(allocateSize);
                     VP_PUBLIC_CHK_NULL_RETURN(krnArg.pData);
                 }
-                VP_PUBLIC_CHK_NULL_RETURN(singleLayerSetting.pfnSetKernelArg);
-                VP_PUBLIC_CHK_STATUS_RETURN(singleLayerSetting.pfnSetKernelArg(kernelArg.uIndex, executingPipe, krnArg.pData, bInit));
-            }
 
-            if (bInit)
-            {
-                kernelParam.kernelArgs.push_back(krnArg);
+                if (kernelArg.addressMode == AddressingModeStateless)
+                {
+                    VP_PUBLIC_CHK_NULL_RETURN(singleLayerSetting.pfnSetStatelessSurface);
+                    VP_PUBLIC_CHK_STATUS_RETURN(singleLayerSetting.pfnSetStatelessSurface(kernelArg.uIndex, executingPipe, *(PSURFACE_PARAMS)krnArg.pData, bInit));
+                }
+                else
+                {
+                    VP_PUBLIC_CHK_NULL_RETURN(singleLayerSetting.pfnSetKernelArg);
+                    VP_PUBLIC_CHK_STATUS_RETURN(singleLayerSetting.pfnSetKernelArg(kernelArg.uIndex, executingPipe, krnArg.pData, bInit));
+                }
+
+                if (bInit)
+                {
+                    kernelParam.kernelArgs.push_back(krnArg);
+                }
             }
         }
 
