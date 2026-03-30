@@ -540,6 +540,11 @@ MOS_STATUS CodechalInterfacesXe_Xpm::Initialize(
     #endif
         {
             CODECHAL_PUBLIC_ASSERTMESSAGE("Decode mode requested invalid!");
+            MOS_Delete(hwInterface);
+            mhwInterfaces->SetDestroyState(true);
+#if USE_CODECHAL_DEBUG_TOOL
+            MOS_Delete(debugInterface);
+#endif
             return MOS_STATUS_INVALID_PARAMETER;
         }
 

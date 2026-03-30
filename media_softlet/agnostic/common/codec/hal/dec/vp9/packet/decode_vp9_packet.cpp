@@ -342,13 +342,14 @@ MOS_STATUS Vp9DecodePkt::EnsureAllCommandsExecuted(MOS_COMMAND_BUFFER &cmdBuffer
     // Send MI_FLUSH command
     auto &par = m_miItf->GETPAR_MI_FLUSH_DW();
     par       = {};
-    
+
     // Add Video Pipeline Cache Invalidate when CRC output is enabled
     if (m_vp9Pipeline && m_vp9Pipeline->GetMemDataAccessCrcOutputEnable())
     {
         par.bVideoPipelineCacheInvalidate = true;
     }
-    
+
+    DECODE_CHK_NULL(m_vp9Pipeline);
     auto *skuTable = m_vp9Pipeline->GetSkuTable();
     if (skuTable && MEDIA_IS_SKU(skuTable, FtrEnablePPCFlush))
     {

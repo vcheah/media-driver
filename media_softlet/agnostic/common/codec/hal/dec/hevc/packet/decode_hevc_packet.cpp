@@ -353,13 +353,14 @@ MOS_STATUS HevcDecodePkt::EnsureAllCommandsExecuted(MOS_COMMAND_BUFFER &cmdBuffe
     // Send MI_FLUSH command
     auto &par      = m_miItf->GETPAR_MI_FLUSH_DW();
     par            = {};
-    
+
     // Add Video Pipeline Cache Invalidate when CRC output is enabled
     if (m_hevcPipeline && m_hevcPipeline->GetMemDataAccessCrcOutputEnable())
     {
         par.bVideoPipelineCacheInvalidate = true;
     }
-    
+
+    DECODE_CHK_NULL(m_hevcPipeline);
     auto *skuTable = m_hevcPipeline->GetSkuTable();
     if (skuTable && MEDIA_IS_SKU(skuTable, FtrEnablePPCFlush))
     {
