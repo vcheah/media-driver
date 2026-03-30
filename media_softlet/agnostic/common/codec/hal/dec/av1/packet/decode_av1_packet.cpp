@@ -81,6 +81,18 @@ MOS_STATUS Av1DecodePkt::Init()
     }
 #endif
 
+#ifdef _DECODE_PROCESSING_SUPPORTED
+    subPacket = m_av1Pipeline->GetSubPacket(DecodePacketId(m_av1Pipeline, av1DecodeAqmId));
+    if (subPacket != nullptr)
+    {
+        m_aqmPkt = dynamic_cast<Av1DecodeAqmPkt*>(subPacket);
+        if (m_aqmPkt != nullptr)
+        {
+            DECODE_CHK_STATUS(m_aqmPkt->CalculateCommandSize(m_aqmStatesSize, m_aqmPatchListSize));
+        }
+    }
+#endif
+
     return MOS_STATUS_SUCCESS;
 }
 
@@ -242,6 +254,9 @@ uint32_t Av1DecodePkt::CalculateCommandBufferSize()
     uint32_t commandBufferSize = 0;
 
     commandBufferSize = m_pictureStatesSize + m_tileStatesSize;
+#ifdef _DECODE_PROCESSING_SUPPORTED
+    commandBufferSize += m_aqmStatesSize;
+#endif
 
     return (commandBufferSize + COMMAND_BUFFER_RESERVED_SPACE);
 }
@@ -256,6 +271,9 @@ uint32_t Av1DecodePkt::CalculatePatchListSize()
     uint32_t requestedPatchListSize = 0;
 
     requestedPatchListSize = m_picturePatchListSize + m_tilePatchListSize;
+#ifdef _DECODE_PROCESSING_SUPPORTED
+    requestedPatchListSize += m_aqmPatchListSize;
+#endif
 
     return requestedPatchListSize;
 }

@@ -27,6 +27,7 @@
 #include "decode_av1_packet_xe3p_lpm_base.h"
 #include "decode_av1_picture_packet_xe3p_lpm_base.h"
 #include "decode_av1_tile_packet_xe3p_lpm_base.h"
+#include "decode_av1_aqm_packet_xe3p_lpm_base.h"
 #include "decode_utils.h"
 #include "codechal_debug.h"
 #include "decode_av1_tile_coding.h"
@@ -322,16 +323,23 @@ namespace decode
         DECODE_CHK_STATUS(subPacketManager.Register(
                             DecodePacketId(this, av1PictureSubPacketId), *pictureDecodePkt));
 
-        Av1DecodeTilePktXe3P_Lpm_Base *tileDecodePkt = MOS_New(Av1DecodeTilePktXe3P_Lpm_Base, this, m_hwInterface);
-        DECODE_CHK_NULL(tileDecodePkt);
-        DECODE_CHK_STATUS(subPacketManager.Register(
-                            DecodePacketId(this, av1TileSubPacketId), *tileDecodePkt));
 #ifdef _DECODE_PROCESSING_SUPPORTED
         Av1DownSamplingPktXe3P_Lpm_Base *downSamplingPkt = MOS_New(Av1DownSamplingPktXe3P_Lpm_Base, this, m_hwInterface);
         DECODE_CHK_NULL(downSamplingPkt);
         DECODE_CHK_STATUS(subPacketManager.Register(
             DecodePacketId(this, downSamplingSubPacketId), *downSamplingPkt));
+
+        Av1DecodeAqmPktXe3PLpmBase *aqmDecodePkt = MOS_New(Av1DecodeAqmPktXe3PLpmBase, this, m_hwInterface);
+        DECODE_CHK_NULL(aqmDecodePkt);
+        DECODE_CHK_STATUS(subPacketManager.Register(
+            DecodePacketId(this, av1DecodeAqmId), *aqmDecodePkt));
 #endif
+
+        Av1DecodeTilePktXe3P_Lpm_Base *tileDecodePkt = MOS_New(Av1DecodeTilePktXe3P_Lpm_Base, this, m_hwInterface);
+        DECODE_CHK_NULL(tileDecodePkt);
+        DECODE_CHK_STATUS(subPacketManager.Register(
+            DecodePacketId(this, av1TileSubPacketId), *tileDecodePkt));
+
         return MOS_STATUS_SUCCESS;
     }
 

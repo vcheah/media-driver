@@ -41,6 +41,15 @@ MOS_STATUS Av1DecodeTilePktXe3P_Lpm_Base::Execute(MOS_COMMAND_BUFFER& cmdBuffer,
     }
 
     DECODE_CHK_STATUS(AddCmd_AVP_TILE_CODING(cmdBuffer, tileIdx));
+
+#ifdef _DECODE_PROCESSING_SUPPORTED
+    if (m_aqmPkt &&
+        (m_av1BasicFeature->m_tileCoding.m_curTile == int16_t(m_av1BasicFeature->m_tileCoding.m_lastTileId - m_av1BasicFeature->m_tileCoding.m_numTiles + 1)))
+    {
+        m_aqmPkt->Execute(cmdBuffer);
+    }
+#endif
+
     DECODE_CHK_STATUS(AddCmd_AVP_BSD_OBJECT(cmdBuffer, tileIdx));
 
     return MOS_STATUS_SUCCESS;

@@ -35,6 +35,25 @@
 
 namespace decode
 {
+    MOS_STATUS Av1DecodePktXe3P_Lpm_Base::Init()
+    {
+        DECODE_FUNC_CALL();
+
+        DECODE_CHK_STATUS(Av1DecodePkt::Init());
+
+#ifdef _DECODE_PROCESSING_SUPPORTED
+        DecodeSubPacket *subPacket = m_av1Pipeline->GetSubPacket(DecodePacketId(m_av1Pipeline, av1DecodeAqmId));
+        m_aqmPkt                   = dynamic_cast<Av1DecodeAqmPktXe3PLpmBase *>(subPacket);
+        if (m_aqmPkt == nullptr)
+        {
+            DECODE_ASSERTMESSAGE("Failed to get AQM packet for Xe3P_LPM_Base platform");
+            return MOS_STATUS_NULL_POINTER;
+        }
+#endif
+
+        return MOS_STATUS_SUCCESS;
+    }
+
     MOS_STATUS Av1DecodePktXe3P_Lpm_Base::Submit(
         MOS_COMMAND_BUFFER* cmdBuffer,
         uint8_t packetPhase)
@@ -180,6 +199,13 @@ namespace decode
         {
             DECODE_CHK_STATUS(VdMemoryFlush(cmdBuffer));
             DECODE_CHK_STATUS(VdPipelineFlush(cmdBuffer));
+
+#ifdef _DECODE_PROCESSING_SUPPORTED
+            if (m_aqmPkt && m_isLastTileInPartialFrm)
+            {
+                DECODE_CHK_STATUS(m_aqmPkt->Flush(cmdBuffer));
+            }
+#endif
             DECODE_CHK_STATUS(EnsureAllCommandsExecuted(cmdBuffer));
             DECODE_CHK_STATUS(EndStatusReport(statusReportMfx, &cmdBuffer));
         }

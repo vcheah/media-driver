@@ -34,6 +34,9 @@
 #include "decode_status_report.h"
 #include "decode_av1_picture_packet.h"
 #include "decode_av1_tile_packet.h"
+#ifdef _DECODE_PROCESSING_SUPPORTED
+#include "decode_av1_aqm_packet.h"
+#endif
 
 namespace decode
 {
@@ -171,6 +174,9 @@ protected:
 
     Av1DecodePicPkt        *m_picturePkt       = nullptr;
     Av1DecodeTilePkt       *m_tilePkt          = nullptr;
+#ifdef _DECODE_PROCESSING_SUPPORTED
+    Av1DecodeAqmPkt        *m_aqmPkt           = nullptr;
+#endif
     bool             m_isLastTileInPartialFrm  = false;
     bool             m_isFirstTileInPartialFrm = false;
 
@@ -181,6 +187,10 @@ protected:
     uint32_t m_picturePatchListSize = 0;
     uint32_t m_tileStatesSize       = 0;
     uint32_t m_tilePatchListSize    = 0;
+#ifdef _DECODE_PROCESSING_SUPPORTED
+    uint32_t m_aqmStatesSize        = 0;
+    uint32_t m_aqmPatchListSize     = 0;
+#endif
 
     BatchBufferArray     *m_secondLevelBBArray = nullptr; //!< Point to second level batch buffer
     MOS_COMMAND_BUFFER    m_picCmdBuffer;

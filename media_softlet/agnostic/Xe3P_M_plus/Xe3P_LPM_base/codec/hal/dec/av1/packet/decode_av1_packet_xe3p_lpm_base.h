@@ -29,6 +29,9 @@
 
 #include "decode_av1_packet.h"
 #include "codec_hw_xe3p_lpm_base.h"
+#ifdef _DECODE_PROCESSING_SUPPORTED
+#include "decode_av1_aqm_packet_xe3p_lpm_base.h"
+#endif
 
 namespace decode
 {
@@ -45,6 +48,13 @@ public:
     virtual ~Av1DecodePktXe3P_Lpm_Base() {}
 
     //!
+    //! \brief  Initialize the media packet, allocate required resources
+    //! \return MOS_STATUS
+    //!         MOS_STATUS_SUCCESS if success, else fail reason
+    //!
+    virtual MOS_STATUS Init() override;
+
+    //!
     //! \brief  Add the command sequence into the commandBuffer and
     //!         and return to the caller task
     //! \param  [in] commandBuffer
@@ -53,6 +63,10 @@ public:
     //!         MOS_STATUS_SUCCESS if success, else fail reason
     //!
     virtual MOS_STATUS Submit(MOS_COMMAND_BUFFER* commandBuffer, uint8_t packetPhase = otherPacket) override;
+
+#ifdef _DECODE_PROCESSING_SUPPORTED
+    Av1DecodeAqmPktXe3PLpmBase *m_aqmPkt = nullptr;
+#endif
 
 protected:
     MOS_STATUS PackPictureLevelCmds(MOS_COMMAND_BUFFER &cmdBuffer);

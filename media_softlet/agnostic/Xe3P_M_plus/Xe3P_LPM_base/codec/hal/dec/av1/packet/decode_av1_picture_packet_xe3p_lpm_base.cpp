@@ -85,7 +85,7 @@ namespace decode
 #ifdef _DECODE_PROCESSING_SUPPORTED
         if (m_downSamplingFeature != nullptr && m_downSamplingPkt != nullptr)
         {
-            if (m_downSamplingFeature->IsEnabled() && !(m_av1PicParams->m_picInfoFlags.m_fields.m_largeScaleTile))  //LST can't support SFC
+            if (m_downSamplingFeature->IsEnabled() && !m_downSamplingFeature->IsVDAQMHistogramEnabled() && !(m_av1PicParams->m_picInfoFlags.m_fields.m_largeScaleTile))  //LST can't support SFC
             {
                 DECODE_CHK_STATUS(m_downSamplingPkt->Execute(cmdBuffer));
             }
@@ -541,6 +541,13 @@ namespace decode
 
         params = {};
         Av1DecodePicPkt::MHW_SETPAR_F(AVP_PIC_STATE)(params);
+
+#ifdef _DECODE_PROCESSING_SUPPORTED
+        if (m_downSamplingFeature && m_downSamplingFeature->IsVDAQMHistogramEnabled())
+        {
+            params.VdaqmEnable = true;
+        }
+#endif
 
         if (m_av1PicParams->m_seqInfoFlags.m_fields.m_subsamplingX == 0 && m_av1PicParams->m_seqInfoFlags.m_fields.m_subsamplingY == 0)
         {

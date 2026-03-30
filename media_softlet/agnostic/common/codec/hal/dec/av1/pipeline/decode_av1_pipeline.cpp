@@ -157,19 +157,6 @@ MOS_STATUS Av1Pipeline::CreateSubPackets(DecodeSubPacketManager &subPacketManage
 
     DECODE_CHK_STATUS(DecodePipeline::CreateSubPackets(subPacketManager, codecSettings));
 
-#if (_DEBUG || _RELEASE_INTERNAL)
-    // Create debug packet
-    Av1DecodeDebugPkt *debugPkt = MOS_New(Av1DecodeDebugPkt, this, m_hwInterface);
-    DECODE_CHK_NULL(debugPkt);
-    MOS_STATUS status = subPacketManager.Register(
-                        DecodePacketId(this, av1DebugSubPacketId), *debugPkt);
-    if (status != MOS_STATUS_SUCCESS)
-    {
-        MOS_Delete(debugPkt);
-        return status;
-    }
-#endif
-
     return MOS_STATUS_SUCCESS;
 }
 
