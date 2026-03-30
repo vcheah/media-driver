@@ -102,6 +102,12 @@ public:
     MEDIA_WA_TABLE *GetWaTable() { return &m_waTable; };
 
     //!
+    //! \brief  Check if deferred GPU context destroy is supported
+    //! \return true if supported, false otherwise
+    //!
+    virtual bool IsDeferredGpuContextDestroySupported() { return false; }
+
+    //!
     //! \brief  Get the platform information string
     //! \return value of m_platformInfo
     //!

@@ -114,6 +114,15 @@ void GpuContextMgrNext::CleanUp()
     {
         DestroyAllGpuContexts();
 
+        // Destroy all deferred gpu contexts
+        MosUtilities::MosLockMutex(m_gpuContextDeleteArrayMutex);
+        for (auto *gpuContext : m_deferredDestroyQueue)
+        {
+            MOS_Delete(gpuContext);
+        }
+        m_deferredDestroyQueue.clear();
+        MosUtilities::MosUnlockMutex(m_gpuContextDeleteArrayMutex);
+
         MosUtilities::MosLockMutex(m_gpuContextArrayMutex);
         m_gpuContextMap.clear();
         MosUtilities::MosUnlockMutex(m_gpuContextArrayMutex);
@@ -276,7 +285,25 @@ void GpuContextMgrNext::DestroyGpuContext(GpuContextNext *gpuContext)
     if (found)
     {
         MosUtilities::MosLockMutex(m_gpuContextDeleteArrayMutex);
-        MOS_Delete(gpuContext);  // delete gpu context.
+
+        if (m_osContext && m_osContext->IsDeferredGpuContextDestroySupported())
+        {
+            gpuContext->ClearForDeferredDestroy();
+            m_deferredDestroyQueue.push_back(gpuContext);
+
+            while (m_deferredDestroyQueue.size() > GPU_CONTEXT_DEFERRED_DESTROY_MAX_COUNT)
+            {
+                GpuContextNext *oldest = m_deferredDestroyQueue.front();
+                m_deferredDestroyQueue.erase(m_deferredDestroyQueue.begin());
+                MOS_OS_NORMALMESSAGE("Deferred destroy queue full, destroying oldest gpu context %p (HW queue/context)", oldest);
+                MOS_Delete(oldest);
+            }
+        }
+        else
+        {
+            MOS_Delete(gpuContext);  // delete gpu context.
+        }
+
         MosUtilities::MosUnlockMutex(m_gpuContextDeleteArrayMutex);
     }
     else

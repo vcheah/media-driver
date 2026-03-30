@@ -56,6 +56,12 @@ public:
     virtual void Clear() = 0;
 
     //!
+    //! \brief    Partial clear for deferred destroy - cleans resources but
+    //!           leaves gpu context virtual destroy to the destructor.
+    //!
+    virtual void ClearForDeferredDestroy() {}
+
+    //!
     //! \brief    Verify command buffer size
     //! \details  Verifys the buffer to be used for rendering GPU commands is large enough
     //! \param    [in] requestedSize
