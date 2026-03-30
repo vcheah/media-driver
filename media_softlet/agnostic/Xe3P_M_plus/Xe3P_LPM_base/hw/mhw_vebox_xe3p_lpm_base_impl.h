@@ -1429,6 +1429,10 @@ public:
                 params.VeboxMode.Hdr1DLutEnable ? this->m_veboxSettings.uiHdrStateSize : this->m_veboxSettings.uiGamutStateSize,
                 this->AddResourceToCmd));
 
+            // Redirect DW6/7 to LutCompound 1DLut surface for HDR state
+            MHW_CHK_STATUS_RETURN(mhw::vebox::common::SetupVeboxHdrStateSurf<cmd_t>(
+                cmd, pOsInterface, this->m_currentCmdBuf, params.pVeboxHdrStateSurf, this->AddResourceToCmd));
+
             MHW_CHK_STATUS_RETURN(mhw::vebox::common::SetupVeboxVertexTable<cmd_t>(
                 cmd, pOsInterface, this->m_currentCmdBuf, pVeboxHeap,
                 uiInstanceBaseAddr, params.bCmBuffer, pVeboxParamResource,

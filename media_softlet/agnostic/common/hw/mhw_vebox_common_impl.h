@@ -670,6 +670,49 @@ inline MOS_STATUS SetupVebox1DLut(
 }
 
 //!
+//! \brief    Helper function for HDR state surface redirect (LutCompound)
+//! \param    [in,out] cmd
+//!           Reference to VEBOX_STATE command
+//! \param    [in] pOsInterface
+//!           Pointer to OS interface
+//! \param    [in] pCmdBuffer
+//!           Pointer to command buffer
+//! \param    [in] pVeboxHdrStateSurf
+//!           Pointer to HDR state surface resource
+//! \param    [in] AddResourceToCmd
+//!           Function pointer to AddResourceToCmd
+//! \return   MOS_STATUS
+//!           MOS_STATUS_SUCCESS if success, else fail reason
+//!
+template <typename cmd_t>
+inline MOS_STATUS SetupVeboxHdrStateSurf(
+    typename cmd_t::VEBOX_STATE_CMD& cmd,
+    PMOS_INTERFACE pOsInterface,
+    PMOS_COMMAND_BUFFER pCmdBuffer,
+    PMOS_RESOURCE pVeboxHdrStateSurf,
+    MOS_STATUS(*AddResourceToCmd)(PMOS_INTERFACE, PMOS_COMMAND_BUFFER, PMHW_RESOURCE_PARAMS))
+{
+    if (pVeboxHdrStateSurf == nullptr)
+    {
+        return MOS_STATUS_SUCCESS;
+    }
+
+    MHW_RESOURCE_PARAMS ResourceParams = {};
+    MOS_ZeroMemory(&ResourceParams, sizeof(ResourceParams));
+    ResourceParams.presResource = pVeboxHdrStateSurf;
+    ResourceParams.dwOffset = 0;
+    ResourceParams.pdwCmd = &(cmd.DW6.Value);
+    ResourceParams.dwLocationInCmd = 6;
+    ResourceParams.HwCommandType = MOS_VEBOX_STATE;
+    ResourceParams.dwSharedMocsOffset = static_cast<uint32_t>(1 - 6);
+
+    return AddResourceToCmd(
+        pOsInterface,
+        pCmdBuffer,
+        &ResourceParams);
+}
+
+//!
 //! \brief    Helper function for dummy IECP resource setup
 //! \param    [in,out] cmd
 //!           Reference to VEBOX_STATE command
