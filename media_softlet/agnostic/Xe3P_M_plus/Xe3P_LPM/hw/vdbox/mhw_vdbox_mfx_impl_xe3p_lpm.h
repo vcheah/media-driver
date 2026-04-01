@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2023, Intel Corporation
+* Copyright (c) 2023-2026, Intel Corporation
 *
 * Permission is hereby granted, free of charge, to any person obtaining a
 * copy of this software and associated documentation files (the "Software"),
@@ -221,6 +221,7 @@ protected:
             step       = 2;
         }
 
+        resourceParams.mocsParams.mocsTableIndex = nullptr;
         for (uint32_t i = 0; i < numRefIdx; i++)
         {
             if (references[i] != nullptr)
@@ -253,7 +254,14 @@ protected:
         }
         InitMocsParams(resourceParams, &cmd.DW51.Value, 1, 6);
         // There is only one control DW51 for all references
-        cmd.DW51.ReferncePictureMemoryObjectControlState = m_referncePictureMemoryObjectControlStateCtrl.Gen12_7.Index;
+        if (params.decodeInUse)
+        {
+            cmd.DW51.ReferncePictureMemoryObjectControlState = m_referncePictureMemoryObjectControlStateCtrlDecode.Gen12_7.Index << 1;
+        }
+        else
+        {
+            cmd.DW51.ReferncePictureMemoryObjectControlState = m_referncePictureMemoryObjectControlStateCtrlEncode.Gen12_7.Index << 1;
+        }
 
         // Reset dwSharedMocsOffset
         resourceParams.dwSharedMocsOffset = 0;
