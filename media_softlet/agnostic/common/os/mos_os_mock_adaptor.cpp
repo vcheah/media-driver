@@ -97,7 +97,8 @@ MOS_STATUS MosMockAdaptor::RegkeyRead(PMOS_CONTEXT osContext)
         value,
         __MEDIA_USER_FEATURE_VALUE_MOCKADAPTOR_PIPE,
         MediaUserSetting::Group::Device);
-    m_numOfVdbox = (uint16_t)value;
+    // Extract fake VDBox number from bits [7:0]
+    m_numOfVdbox = (uint16_t)(value & 0xFF);
 
     return eStatus;
 }
