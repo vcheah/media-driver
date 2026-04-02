@@ -123,6 +123,8 @@ bool Mpeg2DecodePkt::IsPrologRequired()
 MOS_STATUS Mpeg2DecodePkt::AddForceWakeup(MOS_COMMAND_BUFFER& cmdBuffer)
 {
     DECODE_FUNC_CALL();
+    // NativeFence sync BB may cause preemption and ring idle, so force wakeup after it
+    DECODE_CHK_STATUS(AddNativeFenceSyncBBStartCmd(cmdBuffer));
 
     auto &par = m_miItf->GETPAR_MI_FORCE_WAKEUP();
     par       = {};

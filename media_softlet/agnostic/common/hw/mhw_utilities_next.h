@@ -729,6 +729,11 @@ MOS_STATUS Mhw_SurfaceFormatToType(
     PMOS_SURFACE                psSurface,
     uint32_t* pdwSurfaceType);
 
+MOS_STATUS Mhw_SendNativeFenceSyncBBStartCmd(
+    PMOS_COMMAND_BUFFER           pCmdBuffer,
+    PMOS_INTERFACE                pOsInterface,
+    std::shared_ptr<void>         pMiItf);
+
 MOS_STATUS Mhw_SendGenericPrologCmdNext(
     PMOS_COMMAND_BUFFER           pCmdBuffer,
     PMHW_GENERIC_PROLOG_PARAMS    pParams,

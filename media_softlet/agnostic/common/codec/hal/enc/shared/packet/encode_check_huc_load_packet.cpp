@@ -79,6 +79,9 @@ namespace encode
     MOS_STATUS EncodeCheckHucLoadPkt::AddForceWakeup(MOS_COMMAND_BUFFER *cmdBuffer)
     {
         ENCODE_FUNC_CALL();
+        ENCODE_CHK_NULL_RETURN(cmdBuffer);
+        // NativeFence sync BB may cause preemption and ring idle, so force wakeup after it
+        ENCODE_CHK_STATUS_RETURN(AddNativeFenceSyncBBStartCmd(*cmdBuffer));
 
         auto &forceWakeupParams                     = m_miItf->MHW_GETPAR_F(MI_FORCE_WAKEUP)();
         forceWakeupParams                           = {};

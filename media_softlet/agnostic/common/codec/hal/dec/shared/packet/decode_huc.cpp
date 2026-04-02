@@ -208,6 +208,8 @@ MOS_STATUS DecodeHucBasic::EndStatusReport(uint32_t srType, MOS_COMMAND_BUFFER* 
 MOS_STATUS DecodeHucBasic::AddForceWakeup(MOS_COMMAND_BUFFER& cmdBuffer, bool mfxWakeup, bool hcpWakeup)
 {
     DECODE_FUNC_CALL();
+    // NativeFence sync BB may cause preemption and ring idle, so force wakeup after it
+    DECODE_CHK_STATUS(AddNativeFenceSyncBBStartCmd(cmdBuffer));
 
     auto &par = m_miItf->GETPAR_MI_FORCE_WAKEUP();
     par       = {};

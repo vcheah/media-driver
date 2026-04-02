@@ -119,6 +119,8 @@ void Vp9DecodePkt::SetPerfTag(CODECHAL_MODE mode, uint16_t picCodingType)
 MOS_STATUS Vp9DecodePkt::AddForceWakeup(MOS_COMMAND_BUFFER& cmdBuffer)
 {
     DECODE_FUNC_CALL();
+    // NativeFence sync BB may cause preemption and ring idle, so force wakeup after it
+    DECODE_CHK_STATUS(AddNativeFenceSyncBBStartCmd(cmdBuffer));
 
     auto &par = m_miItf->GETPAR_MI_FORCE_WAKEUP();
     par                                         = {};

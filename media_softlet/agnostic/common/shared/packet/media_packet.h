@@ -356,6 +356,19 @@ protected:
     MediaStatusReport             *m_statusReport = nullptr;
     std::shared_ptr<mhw::mi::Itf> m_miItf         = nullptr;
     MediaUserSettingSharedPtr     m_userSettingPtr = nullptr;  //!< usersettingInstance
+
+    //!
+    //! \brief  Add native fence sync BB start command before force wakeup and prolog
+    //! \param  [in, out] cmdBuffer
+    //!         Reference to command buffer
+    //! \return MOS_STATUS
+    //!         MOS_STATUS_SUCCESS if success, else fail reason
+    //!
+    MOS_STATUS AddNativeFenceSyncBBStartCmd(MOS_COMMAND_BUFFER &cmdBuffer)
+    {
+        return Mhw_SendNativeFenceSyncBBStartCmd(&cmdBuffer, m_osInterface, m_miItf);
+    }
+
 MEDIA_CLASS_DEFINE_END(MediaPacket)
 };
  
