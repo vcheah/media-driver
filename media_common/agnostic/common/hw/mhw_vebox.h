@@ -214,9 +214,9 @@ typedef struct _MHW_VEBOX_3D_LUT
     uint32_t    Lut3dEnable                                 : 1;
     uint32_t    Lut3dSize                                   : 2;
     uint32_t    ChannelMappingSwapForLut3D                  : 1;
-    uint32_t    Lut3DLoopingOrder                           : 1;  // 0=legacy B-major, 1=R-major
     uint32_t    InterpolationMethod                         : 1;
-    uint32_t                                                : 24; // Reserved (reduced from 25)
+    uint32_t    Lut3DLoopingOrder                           : 1;  // 0=B-major(legacy), 1=R-major
+    uint32_t                                                : 24; // Reserved
 } MHW_VEBOX_3D_LUT, *PMHW_VEBOX_3D_LUT;
 
 typedef struct _MHW_VEBOX_FP16_INPUT
@@ -634,6 +634,7 @@ typedef struct _MHW_3DLUT_PARAMS
     MHW_3DLUT_INTERPOLATION InterpolationMethod;        //!< Vebox 3DLut interpolation method
 } MHW_3DLUT_PARAMS, *PMHW_3DLUT_PARAMS;
 
+//!
 //! \brief  VEBOX HDR PARAMS
 //! \details For CCM settings, move 1DLut to here later
 typedef struct _MHW_1DLUT_PARAMS
