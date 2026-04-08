@@ -72,6 +72,8 @@ public:
 
     virtual MOS_STATUS SetAiParams(PRENDER_AI_PARAMS params);
 
+    virtual MOS_STATUS SetHdrLiteParams(PRENDER_HDRLITE_PARAMS params);
+
     virtual MOS_STATUS DumpOutput() override;
 
     void PrintWalkerParas(MHW_WALKER_PARAMS &WalkerParams);

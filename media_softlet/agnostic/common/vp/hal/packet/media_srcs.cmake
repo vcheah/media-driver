@@ -40,6 +40,7 @@ set(TMP_SOURCES_
     ${CMAKE_CURRENT_LIST_DIR}/vp_render_ai_kernel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/vp_ai_kernel_pipe.cpp
     ${CMAKE_CURRENT_LIST_DIR}/vp_npu_cmd_packet.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/vp_render_hdrlite_kernel.cpp
 )
 
 set(TMP_HEADERS_
@@ -67,6 +68,7 @@ set(TMP_HEADERS_
     ${CMAKE_CURRENT_LIST_DIR}/vp_render_ai_kernel.h
     ${CMAKE_CURRENT_LIST_DIR}/vp_ai_kernel_pipe.h
     ${CMAKE_CURRENT_LIST_DIR}/vp_npu_cmd_packet.h
+    ${CMAKE_CURRENT_LIST_DIR}/vp_render_hdrlite_kernel.h
 )
 
 set(SOFTLET_VP_SOURCES_

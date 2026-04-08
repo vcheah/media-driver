@@ -2298,6 +2298,33 @@ MOS_STATUS VpRenderCmdPacket::SetAiParams(PRENDER_AI_PARAMS params)
     return MOS_STATUS_SUCCESS;
 }
 
+MOS_STATUS VpRenderCmdPacket::SetHdrLiteParams(PRENDER_HDRLITE_PARAMS params)
+{
+    VP_FUNC_CALL();
+    VP_RENDER_CHK_NULL_RETURN(params);
+
+    KERNEL_PARAMS kernelParam = {};
+    for (RENDER_HDRLITE_KERNEL_PARAM &krnParams : params->kernelParams)
+    {
+        kernelParam.kernelId                       = krnParams.kernelID;
+        kernelParam.kernelArgs                     = krnParams.kernelArgs;
+        kernelParam.kernelThreadSpace.uWidth       = krnParams.threadWidth;
+        kernelParam.kernelThreadSpace.uHeight      = krnParams.threadHeight;
+        kernelParam.kernelThreadSpace.uDepth       = krnParams.threadDepth;
+        kernelParam.kernelThreadSpace.uLocalWidth  = krnParams.localWidth;
+        kernelParam.kernelThreadSpace.uLocalHeight = krnParams.localHeight;
+        kernelParam.syncFlag                       = true;
+        kernelParam.kernelStatefulSurfaces         = krnParams.kernelStatefulSurfaces;
+
+        m_renderKernelParams.push_back(kernelParam);
+    }
+
+    m_submissionMode            = MULTI_KERNELS_SINGLE_MEDIA_STATE;
+    m_isMultiBindingTables      = true;
+    m_isLargeSurfaceStateNeeded = true;
+    return MOS_STATUS_SUCCESS;
+}
+
 MOS_STATUS VpRenderCmdPacket::SetHdr3DLutParams(
     PRENDER_HDR_3DLUT_CAL_PARAMS params)
 {

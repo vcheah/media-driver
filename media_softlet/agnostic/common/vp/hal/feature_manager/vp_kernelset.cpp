@@ -31,6 +31,7 @@
 #include "vp_render_vebox_hdr_3dlut_kernel.h"
 #include "vp_render_vebox_hvs_kernel.h"
 #include "vp_render_hdr_kernel.h"
+#include "vp_render_hdrlite_kernel.h"
 #include "vp_render_vebox_hdr_3dlut_ocl_kernel.h"
 #include "vp_render_ai_kernel.h"
 
@@ -182,6 +183,10 @@ MOS_STATUS VpKernelSet::CreateSingleKernelObject(
         break;
     case kernelHdrMandatory:
         kernel = (VpRenderKernelObj *)MOS_New(VpRenderHdrKernel, m_hwInterface, m_allocator);
+        VP_RENDER_CHK_NULL_RETURN(kernel);
+        break;
+    case kernelHdrMandatoryLite:
+        kernel = (VpRenderKernelObj *)MOS_New(VpRenderHDRLITEKernel, m_hwInterface, kernelId, kernelIndex, m_allocator);
         VP_RENDER_CHK_NULL_RETURN(kernel);
         break;
     case kernelAiCommon:

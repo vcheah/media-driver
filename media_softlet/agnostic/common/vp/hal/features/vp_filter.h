@@ -527,6 +527,14 @@ struct _RENDER_AI_PARAMS
 using RENDER_AI_PARAMS  = _RENDER_AI_PARAMS;
 using PRENDER_AI_PARAMS = RENDER_AI_PARAMS *;
 
+typedef struct
+{
+    uint32_t reserved : 2;
+    uint32_t mantissa : 9;
+    uint32_t exponent : 3;
+    uint32_t sign : 1;
+} CSC_COEFF_FORMAT;
+
 struct _RENDER_HDR_PARAMS
 {
     VpKernelID              kernelId;
@@ -606,6 +614,28 @@ struct _RENDER_HDR_PARAMS
 };
 using RENDER_HDR_PARAMS  = _RENDER_HDR_PARAMS;
 using PRENDER_HDR_PARAMS = RENDER_HDR_PARAMS *;
+
+struct RENDER_HDRLITE_KERNEL_PARAM
+{
+    KERNEL_ARGS                  kernelArgs;
+    VpKernelID                   kernelID;
+    uint32_t                     threadWidth;
+    uint32_t                     threadHeight;
+    uint32_t                     threadDepth;
+    uint32_t                     localWidth;
+    uint32_t                     localHeight;
+    KERNEL_ARG_INDEX_SURFACE_MAP kernelStatefulSurfaces;
+    void                         Init();
+};
+
+using RENDER_HDRLITE_KERNEL_PARAMS = std::vector<RENDER_HDRLITE_KERNEL_PARAM>;
+struct _RENDER_HDRLITE_PARAMS
+{
+    RENDER_HDRLITE_KERNEL_PARAMS kernelParams = {};
+    void                      Init();
+};
+using RENDER_HDRLITE_PARAMS  = _RENDER_HDRLITE_PARAMS;
+using PRENDER_HDRLITE_PARAMS = RENDER_HDRLITE_PARAMS *;
 
 class SwFilterPipe;
 class HwFilter;

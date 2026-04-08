@@ -203,6 +203,7 @@ enum VpKernelIDNext
     kernelHdr3DLutCalc = vpKernelIDNextBase,
     kernelHdr3DLutCalcOcl,
     kernelHVSCalc,
+    kernelHdrMandatoryLite,
 
     //Add New Kernel ID Here
 

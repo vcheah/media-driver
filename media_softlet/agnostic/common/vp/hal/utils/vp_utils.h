@@ -535,6 +535,66 @@ public:
         MEDIA_CSPACE dst,
         float        cscMatrix[12]);
 
+    //!
+    //! \brief    Get RGB Range and Offset
+    //! \details  Get RGB Range and Offset
+    //! \param    [in] cspace
+    //!           Color Space
+    //! \param    [out] rgbOffset
+    //!           Offset
+    //! \param    [out] rgbExcursion
+    //!           Range
+    //! \return   MOS_STATUS
+    //!           Return MOS_STATUS_SUCCESS if successful
+    //!
+    static MOS_STATUS GetRgbRangeAndOffset(
+        VPHAL_CSPACE cspace,
+        float       &rgbOffset,
+        float       &rgbExcursion);
+
+    //!
+    //! \brief    Get YUV Range and Offset
+    //! \details  Get YUV Range and Offset
+    //! \param    [in] cspace
+    //!           Color Space
+    //! \param    [out] lumaOffset
+    //!           Offset
+    //! \param    [out] lumaExcursion
+    //!           Range
+    //! \param    [out] chromaZero
+    //!           Offset
+    //! \param    [out] chromaExcursion
+    //!           Range
+    //! \return   MOS_STATUS
+    //!           Return MOS_STATUS_SUCCESS if successful
+    //!
+    static MOS_STATUS GetYuvRangeAndOffset(
+        VPHAL_CSPACE cspace,
+        float       &lumaOffset,
+        float       &lumaExcursion,
+        float       &chromaZero,
+        float       &chromaExcursion);
+
+    //!
+    //! \brief    Get CSC Matrix for HDR
+    //! \details  Get CSC Matrix for HDR
+    //! \param    [in] src
+    //!           Color Space
+    //! \param    [in] dst
+    //!           Color Space
+    //! \param    [in] swapChannel
+    //!           Swap Channel or not
+    //! \param    [out] outMatrix
+    //!           CSC Matrix
+    //! \return   MOS_STATUS
+    //!           Return MOS_STATUS_SUCCESS if successful
+    //!
+    static MOS_STATUS GetCscMatrixForHDR(
+        VPHAL_CSPACE src,
+        VPHAL_CSPACE dst,
+        bool         swapChannel,
+        float       *outMatrix);
+
 private:
     //!
     //! \brief    Performs Color Space Convert for Sample 8 bit Using Specified Coeff Matrix

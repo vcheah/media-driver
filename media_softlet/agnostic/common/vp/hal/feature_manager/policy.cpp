@@ -199,9 +199,21 @@ MOS_STATUS Policy::RegisterFeatures()
     VP_PUBLIC_CHK_NULL_RETURN(p);
     m_RenderFeatureHandlers.emplace(FeatureTypeHdr3DLutCalOnRender, p);
 
-    p = MOS_New(PolicyRenderHdrHandler, m_hwCaps);
-    VP_PUBLIC_CHK_NULL_RETURN(p);
-    m_RenderFeatureHandlers.emplace(FeatureTypeHdrOnRender, p);
+    {
+#ifdef _MEDIA_RESERVED
+        VpPlatformInterface *vpPlatformInterface = (VpPlatformInterface *)m_vpInterface.GetHwInterface()->m_vpPlatformInterface;
+        if (vpPlatformInterface && vpPlatformInterface->GetVpFeatureSupportBits().vpFeatureSupportBitsHdrLite)
+        {
+            p = MOS_New(PolicyRenderHdrLiteHandler, m_hwCaps);
+        }
+        else
+#endif
+        {
+            p = MOS_New(PolicyRenderHdrHandler, m_hwCaps);
+        }
+        VP_PUBLIC_CHK_NULL_RETURN(p);
+        m_RenderFeatureHandlers.emplace(FeatureTypeHdrOnRender, p);
+    }
 
     p = MOS_New(PolicyDiHandler, m_hwCaps);
     VP_PUBLIC_CHK_NULL_RETURN(p);
@@ -3565,9 +3577,21 @@ MOS_STATUS Policy::LayerSelectForProcess(std::vector<int> &layerIndexes, SwFilte
         {
             VP_PUBLIC_CHK_STATUS_RETURN(MOS_STATUS_INVALID_PARAMETER);
         }
-        PolicyRenderHdrHandler *hdrHandler = dynamic_cast<PolicyRenderHdrHandler *>(it->second);
-        VP_PUBLIC_CHK_NULL_RETURN(hdrHandler);
-        VP_PUBLIC_CHK_STATUS_RETURN(hdrHandler->LayerSelectForProcess(layerIndexes, featurePipe, caps));
+#ifdef _MEDIA_RESERVED
+        VpPlatformInterface *vpPlatformInterface = (VpPlatformInterface *)m_vpInterface.GetHwInterface()->m_vpPlatformInterface;
+        if (vpPlatformInterface && vpPlatformInterface->GetVpFeatureSupportBits().vpFeatureSupportBitsHdrLite)
+        {
+            PolicyRenderHdrLiteHandler *hdrHandler = dynamic_cast<PolicyRenderHdrLiteHandler *>(it->second);
+            VP_PUBLIC_CHK_NULL_RETURN(hdrHandler);
+            VP_PUBLIC_CHK_STATUS_RETURN(hdrHandler->LayerSelectForProcess(layerIndexes, featurePipe, caps));
+        }
+        else
+#endif
+        {
+            PolicyRenderHdrHandler *hdrHandler = dynamic_cast<PolicyRenderHdrHandler *>(it->second);
+            VP_PUBLIC_CHK_NULL_RETURN(hdrHandler);
+            VP_PUBLIC_CHK_STATUS_RETURN(hdrHandler->LayerSelectForProcess(layerIndexes, featurePipe, caps));
+        }
         return MOS_STATUS_SUCCESS;
     }
 

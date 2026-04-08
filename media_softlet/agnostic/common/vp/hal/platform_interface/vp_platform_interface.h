@@ -467,6 +467,12 @@ public:
         return m_isOclKernelEnabled;
     }
 
+    MOS_STATUS SetHdrLiteKernelEnable()
+    {
+        m_isHdrLiteKernelEnabled = true;
+        return MOS_STATUS_SUCCESS;
+    }
+
     virtual bool IsVrtEnabled()
     {
         return false;
@@ -511,6 +517,7 @@ protected:
 
     bool m_isRenderDisabled = false;
     bool m_isOclKernelEnabled = false;
+    bool m_isHdrLiteKernelEnabled = false;
     VpFrameTracker *m_frameTracker     = nullptr;
     VP_FEATURE_SUPPORT_BITS m_vpFeatureSupportBits = {};
     MEDIA_CLASS_DEFINE_END(vp__VpPlatformInterface)
