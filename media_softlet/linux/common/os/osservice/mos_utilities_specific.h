@@ -53,6 +53,11 @@ class MosMutex;
 #define USER_FEATURE_FILE                   "/etc/igfx_user_feature.txt"
 #define USER_FEATURE_FILE_NEXT              "/etc/igfx_user_feature_next.txt"
 #define USER_FEATURE_FILE_REPORT            "/etc/igfx_user_feature_report.txt"
+#ifdef SYSCONFDIR
+#define GFX_CONF_FILE                       SYSCONFDIR "/libva.conf"
+#else
+#define GFX_CONF_FILE                       "/etc/libva.conf"
+#endif
 #endif
 #define UF_KEY_ID                           "[KEY]"
 #define UF_VALUE_ID                         "[VALUE]"
@@ -406,6 +411,7 @@ private:
 public:
     static const char*          m_szUserFeatureFile;
     static std::string          m_szUserFeatureFileNext;
+    static std::string          m_szUserFeatureFileReport;
     static MOS_PUF_KEYLIST      m_ufKeyList;
     static int32_t              m_mosTraceFd;
     static uint64_t             m_filterEnv;
