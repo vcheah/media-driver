@@ -1016,13 +1016,7 @@ MOS_STATUS MosOcaInterfaceSpecific::InsertOcaBufHandleMap(uint32_t *key, MOS_OCA
     MOS_OS_CHK_NULL_RETURN(key);
 
     MosOcaAutoLock autoLock(m_ocaMutex);
-    auto success = m_hOcaMap.emplace(key, handle);
-    if (!success.second)
-    {
-        // Should never come to here.
-        MOS_OS_ASSERTMESSAGE("OcaBufHandle has already been assigned to current cmdBuffer!");
-        return MOS_STATUS_UNKNOWN;
-    }
+    m_hOcaMap[key] = handle;
     return MOS_STATUS_SUCCESS;
 }
 
