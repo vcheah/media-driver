@@ -874,13 +874,13 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 2
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 19);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 19);
             uint32_t PictureType : __CODEGEN_BITFIELD(20, 21);               //!< Picture Type
             uint32_t TemporalMvpEnableFlag : __CODEGEN_BITFIELD(22, 22);     //!< TemporalMvpEnableFlag
             uint32_t Collocatedfroml0Flag : __CODEGEN_BITFIELD(23, 23);      //!< CollocatedFromL0Flag
             uint32_t LongTermReferenceFlagsL0 : __CODEGEN_BITFIELD(24, 26);  //!< LongTermReferenceFlags_L0
             uint32_t LongTermReferenceFlagsL1 : __CODEGEN_BITFIELD(27, 27);  //!< LongTermReferenceFlags_L1
-            uint32_t : __CODEGEN_BITFIELD(28, 29);
+            uint32_t Reserved28 : __CODEGEN_BITFIELD(28, 29);
             uint32_t TransformSkip : __CODEGEN_BITFIELD(30, 30);             //!< TransformSkip
             uint32_t ConstrainedIntraPredFlag : __CODEGEN_BITFIELD(31, 31);  //!< ConstrainedIntraPredFlag
         };
@@ -915,11 +915,11 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 5
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 7);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 7);
             uint32_t StreaminRoiEnable : __CODEGEN_BITFIELD(8, 8);  //!< StreamIn ROI Enable
-            uint32_t : __CODEGEN_BITFIELD(9, 9);
+            uint32_t Reserved9 : __CODEGEN_BITFIELD(9, 9);
             uint32_t SubPelMode : __CODEGEN_BITFIELD(10, 11);  //!< SubPelMode
-            uint32_t : __CODEGEN_BITFIELD(12, 23);
+            uint32_t Reserved12 : __CODEGEN_BITFIELD(12, 23);
             uint32_t NumRefIdxL0Minus1 : __CODEGEN_BITFIELD(24, 27);  //!< NumRefIdxL0_minus1
             uint32_t NumRefIdxL1Minus1 : __CODEGEN_BITFIELD(28, 31);  //!< NumRefIdxL1_minus1
         };
@@ -930,7 +930,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 6
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW6;
@@ -939,16 +939,16 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 7
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 3);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 3);
             uint32_t SegmentationEnable : __CODEGEN_BITFIELD(4, 4);                       //!< Segmentation Enable
             uint32_t SegmentationMapTemporalPredictionEnable : __CODEGEN_BITFIELD(5, 5);  //!< Segmentation map temporal prediction enable
-            uint32_t : __CODEGEN_BITFIELD(6, 6);
+            uint32_t Reserved6 : __CODEGEN_BITFIELD(6, 6);
             uint32_t TilingEnable : __CODEGEN_BITFIELD(7, 7);  //!< Tiling enable
-            uint32_t : __CODEGEN_BITFIELD(8, 8);
+            uint32_t Reserved8 : __CODEGEN_BITFIELD(8, 8);
             uint32_t VdencStreamInEnable : __CODEGEN_BITFIELD(9, 9);  //!< VDENC Stream IN
-            uint32_t : __CODEGEN_BITFIELD(10, 15);
+            uint32_t Reserved10 : __CODEGEN_BITFIELD(10, 15);
             uint32_t PakOnlyMultiPassEnable : __CODEGEN_BITFIELD(16, 16);  //!< PAK-Only Multi-Pass Enable
-            uint32_t : __CODEGEN_BITFIELD(17, 31);
+            uint32_t Reserved17 : __CODEGEN_BITFIELD(17, 31);
         };
         uint32_t Value;
     } DW7;
@@ -957,7 +957,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 8
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW8;
@@ -966,7 +966,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 9
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW9;
@@ -975,7 +975,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 10
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW10;
@@ -985,13 +985,13 @@ struct _VDENC_CMD2_CMD
         struct
         {
             uint32_t FwdRef0RefPic : __CODEGEN_BITFIELD(0, 2);
-            uint32_t : __CODEGEN_BITFIELD(3, 7);
+            uint32_t Reserved3 : __CODEGEN_BITFIELD(3, 7);
             uint32_t FwdRef1RefPic : __CODEGEN_BITFIELD(8, 10);
-            uint32_t : __CODEGEN_BITFIELD(11, 15);
+            uint32_t Reserved11 : __CODEGEN_BITFIELD(11, 15);
             uint32_t FwdRef2RefPic : __CODEGEN_BITFIELD(16, 18);
-            uint32_t : __CODEGEN_BITFIELD(19, 23);
+            uint32_t Reserved19 : __CODEGEN_BITFIELD(19, 23);
             uint32_t BwdRef0RefPic : __CODEGEN_BITFIELD(24, 26);
-            uint32_t : __CODEGEN_BITFIELD(27, 31);
+            uint32_t Reserved27 : __CODEGEN_BITFIELD(27, 31);
         };
         uint32_t Value;
     } DW11;
@@ -1000,7 +1000,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 12
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW12;
@@ -1009,7 +1009,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 13
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW13;
@@ -1018,7 +1018,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 14
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW14;
@@ -1027,7 +1027,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 15
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW15;
@@ -1038,7 +1038,7 @@ struct _VDENC_CMD2_CMD
         {
             uint32_t MinQp : __CODEGEN_BITFIELD(0, 7);   //!< MINQP
             uint32_t MaxQp : __CODEGEN_BITFIELD(8, 15);  //!< MAXQP
-            uint32_t : __CODEGEN_BITFIELD(16, 31);
+            uint32_t Reserved16 : __CODEGEN_BITFIELD(16, 31);
         };
         uint32_t Value;
     } DW16;
@@ -1047,9 +1047,9 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 17
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 19);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 19);
             uint32_t TemporalMVEnableForIntegerSearch : __CODEGEN_BITFIELD(20, 20);  //!< Setting this bit enables Temporal MV Enable for Integer search
-            uint32_t : __CODEGEN_BITFIELD(21, 31);
+            uint32_t Reserved21 : __CODEGEN_BITFIELD(21, 31);
         };
         uint32_t Value;
     } DW17;
@@ -1058,7 +1058,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 18
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW18;
@@ -1067,7 +1067,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 19
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW19;
@@ -1076,7 +1076,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 20
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW20;
@@ -1086,11 +1086,11 @@ struct _VDENC_CMD2_CMD
         struct
         {
             uint32_t IntraRefreshPos : __CODEGEN_BITFIELD(0, 8);  //!< IntraRefreshPos
-            uint32_t : __CODEGEN_BITFIELD(9, 15);
+            uint32_t Reserved9 : __CODEGEN_BITFIELD(9, 15);
             uint32_t IntraRefreshMBSizeMinusOne : __CODEGEN_BITFIELD(16, 23);  //!< IntraRefreshMBSizeMinusOne
             uint32_t IntraRefreshMode : __CODEGEN_BITFIELD(24, 24);            //!< IntraRefreshMode
             uint32_t IntraRefreshEnable : __CODEGEN_BITFIELD(25, 25);          //!< IntraRefreshEnable (Rolling I Enable)
-            uint32_t : __CODEGEN_BITFIELD(26, 27);
+            uint32_t Reserved26 : __CODEGEN_BITFIELD(26, 27);
             uint32_t QpAdjustmentForRollingI : __CODEGEN_BITFIELD(28, 31);  //!< QP_ADJUSTMENT_FOR_ROLLING_I
         };
         uint32_t Value;
@@ -1100,7 +1100,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 22
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW22;
@@ -1109,7 +1109,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 23
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW23;
@@ -1142,9 +1142,9 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 26
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 24);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 24);
             uint32_t Vp9DynamicSliceEnable : __CODEGEN_BITFIELD(25, 25);  //!< VP9 Dynamic slice enable
-            uint32_t : __CODEGEN_BITFIELD(26, 31);
+            uint32_t Reserved26 : __CODEGEN_BITFIELD(26, 31);
         };
         uint32_t Value;
     } DW26;
@@ -1155,7 +1155,7 @@ struct _VDENC_CMD2_CMD
         {
             uint32_t QpPrimeYDc : __CODEGEN_BITFIELD(0, 7);   //!< QPPRIMEY_DC
             uint32_t QpPrimeYAc : __CODEGEN_BITFIELD(8, 15);  //!< QPPRIMEY_AC
-            uint32_t : __CODEGEN_BITFIELD(16, 31);
+            uint32_t Reserved16 : __CODEGEN_BITFIELD(16, 31);
         };
         uint32_t Value;
     } DW27;
@@ -1164,7 +1164,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 28
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW28;
@@ -1173,7 +1173,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 29
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW29;
@@ -1182,7 +1182,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 30
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW30;
@@ -1191,7 +1191,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 31
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW31;
@@ -1200,7 +1200,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 32
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW32;
@@ -1209,7 +1209,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 33
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW33;
@@ -1218,7 +1218,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 34
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW34;
@@ -1227,7 +1227,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 35
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW35;
@@ -1237,11 +1237,11 @@ struct _VDENC_CMD2_CMD
         struct
         {
             uint32_t IntraRefreshBoundaryRef0 : __CODEGEN_BITFIELD(0, 8);  //!< IntraRefreshBoundary Ref0
-            uint32_t : __CODEGEN_BITFIELD(9, 9);
+            uint32_t Reserved9 : __CODEGEN_BITFIELD(9, 9);
             uint32_t IntraRefreshBoundaryRef1 : __CODEGEN_BITFIELD(10, 18);  //!< IntraRefreshBoundary Ref1
-            uint32_t : __CODEGEN_BITFIELD(19, 19);
+            uint32_t Reserved19 : __CODEGEN_BITFIELD(19, 19);
             uint32_t IntraRefreshBoundaryRef2 : __CODEGEN_BITFIELD(20, 28);  //!< IntraRefreshBoundary Ref2
-            uint32_t : __CODEGEN_BITFIELD(29, 31);
+            uint32_t Reserved29 : __CODEGEN_BITFIELD(29, 31);
         };
         uint32_t Value;
     } DW36;
@@ -1249,7 +1249,7 @@ struct _VDENC_CMD2_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW37;
@@ -1258,7 +1258,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 38
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW38;
@@ -1267,7 +1267,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 39
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW39;
@@ -1276,7 +1276,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 40
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW40;
@@ -1285,7 +1285,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 41
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW41;
@@ -1294,7 +1294,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 42
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW42;
@@ -1303,7 +1303,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 43
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW43;
@@ -1312,7 +1312,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 44
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW44;
@@ -1321,7 +1321,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 45
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW45;
@@ -1330,7 +1330,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 46
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW46;
@@ -1339,7 +1339,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 47
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW47;
@@ -1348,7 +1348,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 48
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW48;
@@ -1357,7 +1357,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 49
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW49;
@@ -1366,7 +1366,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 50
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW50;
@@ -1375,7 +1375,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 51
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW51;
@@ -1384,7 +1384,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 52
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW52;
@@ -1393,7 +1393,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 53
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW53;
@@ -1402,7 +1402,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 54
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW54;
@@ -1411,7 +1411,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 55
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW55;
@@ -1420,7 +1420,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 56
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW56;
@@ -1429,7 +1429,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 57
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW57;
@@ -1438,7 +1438,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 58
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW58;
@@ -1447,7 +1447,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 59
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW59;
@@ -1456,7 +1456,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 60
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW60;
@@ -1481,7 +1481,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 62
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW62;
@@ -1490,7 +1490,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 63
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW63;
@@ -1499,7 +1499,7 @@ struct _VDENC_CMD2_CMD
         //!< DWORD 64
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW64;
@@ -1571,12 +1571,12 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 1);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 1);
             uint32_t PictureType : __CODEGEN_BITFIELD(2, 3);
             uint32_t Transform8X8Flag : __CODEGEN_BITFIELD(4, 4);
             uint32_t colloc_mv_wr_en : __CODEGEN_BITFIELD(5, 5);
             uint32_t SubpelMode : __CODEGEN_BITFIELD(6, 7);
-            uint32_t : __CODEGEN_BITFIELD(8, 31);
+            uint32_t Reserved8 : __CODEGEN_BITFIELD(8, 31);
         };
         uint32_t Value;
     } DW1;
@@ -1584,11 +1584,11 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 12);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 12);
             uint32_t colloc_mv_rd_en : __CODEGEN_BITFIELD(13, 13);
-            uint32_t : __CODEGEN_BITFIELD(14, 17);
+            uint32_t Reserved14 : __CODEGEN_BITFIELD(14, 17);
             uint32_t BidirectionalWeight : __CODEGEN_BITFIELD(18, 23);
-            uint32_t : __CODEGEN_BITFIELD(24, 31);
+            uint32_t Reserved24 : __CODEGEN_BITFIELD(24, 31);
         };
         uint32_t Value;
     } DW2;
@@ -1597,9 +1597,9 @@ struct _VDENC_AVC_IMG_STATE_CMD
         struct
         {
             uint32_t PictureHeightMinusOne : __CODEGEN_BITFIELD(0, 7);
-            uint32_t : __CODEGEN_BITFIELD(8, 15);
+            uint32_t Reserved8 : __CODEGEN_BITFIELD(8, 15);
             uint32_t PictureWidth : __CODEGEN_BITFIELD(16, 24);
-            uint32_t : __CODEGEN_BITFIELD(25, 31);
+            uint32_t Reserved25 : __CODEGEN_BITFIELD(25, 31);
         };
         uint32_t Value;
     } DW3;
@@ -1607,7 +1607,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW4;
@@ -1618,11 +1618,11 @@ struct _VDENC_AVC_IMG_STATE_CMD
             uint32_t FwdRefIdx0ReferencePicture : __CODEGEN_BITFIELD(0, 3);
             uint32_t BwdRefIdx0ReferencePicture : __CODEGEN_BITFIELD(4, 7);
             uint32_t FwdRefIdx1ReferencePicture : __CODEGEN_BITFIELD(8, 11);
-            uint32_t : __CODEGEN_BITFIELD(12, 15);
+            uint32_t Reserved12 : __CODEGEN_BITFIELD(12, 15);
             uint32_t FwdRefIdx2ReferencePicture : __CODEGEN_BITFIELD(16, 19);
             uint32_t NumberOfL0ReferencesMinusOne : __CODEGEN_BITFIELD(20, 23);
             uint32_t NumberOfL1ReferencesMinusOne : __CODEGEN_BITFIELD(24, 26);
-            uint32_t : __CODEGEN_BITFIELD(27, 31);
+            uint32_t Reserved27 : __CODEGEN_BITFIELD(27, 31);
         };
         uint32_t Value;
     } DW5;
@@ -1634,7 +1634,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
             uint32_t IntraRefreshMbSizeMinusOne : __CODEGEN_BITFIELD(8, 15);
             uint32_t IntraRefreshEnableRollingIEnable : __CODEGEN_BITFIELD(16, 16);
             uint32_t IntraRefreshMode : __CODEGEN_BITFIELD(17, 17);
-            uint32_t : __CODEGEN_BITFIELD(18, 23);
+            uint32_t Reserved18 : __CODEGEN_BITFIELD(18, 23);
             uint32_t QpAdjustmentForRollingI : __CODEGEN_BITFIELD(24, 31);
         };
         uint32_t Value;
@@ -1643,7 +1643,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW7;
@@ -1651,7 +1651,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW8;
@@ -1663,7 +1663,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
             uint32_t RoiQpAdjustmentForZone1 : __CODEGEN_BITFIELD(4, 7);
             uint32_t RoiQpAdjustmentForZone2 : __CODEGEN_BITFIELD(8, 11);
             uint32_t RoiQpAdjustmentForZone3 : __CODEGEN_BITFIELD(12, 15);
-            uint32_t : __CODEGEN_BITFIELD(16, 31);
+            uint32_t Reserved16 : __CODEGEN_BITFIELD(16, 31);
         };
         uint32_t Value;
     } DW9;
@@ -1671,7 +1671,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW10;
@@ -1679,7 +1679,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW11;
@@ -1689,9 +1689,9 @@ struct _VDENC_AVC_IMG_STATE_CMD
         {
             uint32_t MinQp : __CODEGEN_BITFIELD(0, 7);
             uint32_t MaxQp : __CODEGEN_BITFIELD(8, 15);
-            uint32_t : __CODEGEN_BITFIELD(16, 28);
+            uint32_t Reserved16 : __CODEGEN_BITFIELD(16, 28);
             uint32_t NumBframesBetweenFwdAndBwd : __CODEGEN_BITFIELD(29, 30);
-            uint32_t : __CODEGEN_BITFIELD(31, 31);
+            uint32_t Reserved31 : __CODEGEN_BITFIELD(31, 31);
         };
         uint32_t Value;
     } DW12;
@@ -1700,13 +1700,13 @@ struct _VDENC_AVC_IMG_STATE_CMD
         struct
         {
             uint32_t RoiEnable : __CODEGEN_BITFIELD(0, 0);
-            uint32_t : __CODEGEN_BITFIELD(1, 2);
+            uint32_t Reserved1 : __CODEGEN_BITFIELD(1, 2);
             uint32_t MbLevelQpEnable : __CODEGEN_BITFIELD(3, 3);
-            uint32_t : __CODEGEN_BITFIELD(4, 4);
+            uint32_t Reserved4 : __CODEGEN_BITFIELD(4, 4);
             uint32_t MbLevelDeltaQpEnable : __CODEGEN_BITFIELD(5, 5);
-            uint32_t : __CODEGEN_BITFIELD(6, 9);
+            uint32_t Reserved6 : __CODEGEN_BITFIELD(6, 9);
             uint32_t LongtermReferenceFrameBwdRef0Indicator : __CODEGEN_BITFIELD(10, 10);
-            uint32_t : __CODEGEN_BITFIELD(11, 31);
+            uint32_t Reserved11 : __CODEGEN_BITFIELD(11, 31);
         };
         uint32_t Value;
     } DW13;
@@ -1715,9 +1715,9 @@ struct _VDENC_AVC_IMG_STATE_CMD
         struct
         {
             uint32_t QpPrimeY : __CODEGEN_BITFIELD(0, 7);
-            uint32_t : __CODEGEN_BITFIELD(8, 18);
+            uint32_t Reserved8 : __CODEGEN_BITFIELD(8, 18);
             uint32_t TrellisQuantEn : __CODEGEN_BITFIELD(19, 19);
-            uint32_t : __CODEGEN_BITFIELD(20, 31);
+            uint32_t Reserved20 : __CODEGEN_BITFIELD(20, 31);
         };
         uint32_t Value;
     } DW14;
@@ -1725,9 +1725,9 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 7);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 7);
             uint32_t PocNumberForCurrentPicture : __CODEGEN_BITFIELD(8, 15);
-            uint32_t : __CODEGEN_BITFIELD(16, 31);
+            uint32_t Reserved16 : __CODEGEN_BITFIELD(16, 31);
         };
         uint32_t Value;
     } DW15;
@@ -1735,9 +1735,9 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 7);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 7);
             uint32_t PocNumberForFwdRef0 : __CODEGEN_BITFIELD(8, 15);
-            uint32_t : __CODEGEN_BITFIELD(16, 31);
+            uint32_t Reserved16 : __CODEGEN_BITFIELD(16, 31);
         };
         uint32_t Value;
     } DW16;
@@ -1745,9 +1745,9 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 7);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 7);
             uint32_t PocNumberForFwdRef1 : __CODEGEN_BITFIELD(8, 15);
-            uint32_t : __CODEGEN_BITFIELD(16, 31);
+            uint32_t Reserved16 : __CODEGEN_BITFIELD(16, 31);
         };
         uint32_t Value;
     } DW17;
@@ -1755,9 +1755,9 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 7);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 7);
             uint32_t PocNumberForFwdRef2 : __CODEGEN_BITFIELD(8, 15);
-            uint32_t : __CODEGEN_BITFIELD(16, 31);
+            uint32_t Reserved16 : __CODEGEN_BITFIELD(16, 31);
         };
         uint32_t Value;
     } DW18;
@@ -1765,9 +1765,9 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 7);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 7);
             uint32_t PocNumberForBwdRef0 : __CODEGEN_BITFIELD(8, 15);
-            uint32_t : __CODEGEN_BITFIELD(16, 31);
+            uint32_t Reserved16 : __CODEGEN_BITFIELD(16, 31);
         };
         uint32_t Value;
     } DW19;
@@ -1775,7 +1775,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW20;
@@ -1783,7 +1783,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW21;
@@ -1791,7 +1791,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW22;
@@ -1799,7 +1799,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW23;
@@ -1807,7 +1807,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW24;
@@ -1815,7 +1815,7 @@ struct _VDENC_AVC_IMG_STATE_CMD
     {
         struct
         {
-            uint32_t : __CODEGEN_BITFIELD(0, 31);
+            uint32_t Reserved0 : __CODEGEN_BITFIELD(0, 31);
         };
         uint32_t Value;
     } DW25;
